@@ -1,6 +1,8 @@
 # Formulae Calculator
 
-Rough project created in order to learn python. Represents about an afternoons work. 
+Calculate given formulae with given values.
+
+This is a rough project created in order to learn python. 
 
 ## Requirements
 
@@ -13,6 +15,7 @@ Python 3.9.0 or compatible.
 * Enter a formula and click *'PARSE'*.
 * Enter numeric values for each variable and click *'Calculate'*.
 * Result is given.
+* Re-enter numeric values for the formula and click *'Calculate'* again for the updated result.
 
 ## Capabilities
 
