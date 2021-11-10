@@ -6,7 +6,7 @@ This is a rough project created in order to learn python.
 
 ## Requirements
 
-Python 3.9.0 or compatible and Tkinter.
+Python 3.9.0 or compatible with Tkinter.
 
 ## Install and Run
 
