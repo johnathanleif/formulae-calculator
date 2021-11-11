@@ -1,0 +1,12 @@
+must take input formula string
+must parse formula string to define variables and take numeric input for each one
+must calculate result of the formula from the given formula string with substituted variables
+
+Parsing:
+must parse variable names with alphabetic characters of any length e.g x, var
+allow variable names to contain but not start with numbers e.g. var2, x4y
+must parse variable starting with numbers as number * variable e.g. 2x is 2*x
+parse mathematical signs  +, -, *, /, etc. provided they are between numbers and/or variables
+
+Calculating:
+follow standard order of operations
