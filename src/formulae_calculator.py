@@ -1,19 +1,19 @@
-import parser
-import calculator
+from parser import *
+from calculator import *
 
 def main():
 
     input_string = "x"
 
-    formula, variables = parser.parse(input_string)
+    formula, variables = parse(input_string)
     print(formula)
     print(variables)
 
     substitutions = {"x": "2"}
 
-    parser.substitute_variables(formula, variables, substitutions)
+    substitute_variables(formula, variables, substitutions)
     print(formula)
 
-    print(calculator.calculate_formula(formula))
+    print(calculate_formula(formula))
 
 main()

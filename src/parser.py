@@ -1,88 +1,103 @@
 
-class Sequence:
+class Operand:
+    """ Operand types.
+        NEW: Not yet defined.
+        NUM: A number.
+        VAR: A variable.
+    """
     NEW = -1
-    NUMBER = 0
+    NUM = 0
     VAR = 1
 
 
 OPERATORS = {'+','-','*','/','(',')','^','%'}
 
-def parse(input_str):
+def parse(input_formula):
     """ Parse input string.
-        Identify variables and replace multiplied variables and brackets with
-        expanded operations e.g 2x becomes 2 * x, 2(x+y) becomes 2*(x+y), etc.
-        Return formula string following python syntax for use with eval()
-        and set of variables with string start and end positions
+        Identify variables, replace multiplied variables and brackets with
+        expanded operations (e.g 2x becomes 2 * x, 2(x+y) becomes 2*(x+y), etc.)
+        and replace non-python syntax with python syntax.
+        Params:
+            input_formula: the inputted formula string
+        Return:
+            formula in list form holding serparated operands and operators in given order
     """
-
     formula = []
     variables = {}
-    sequence = ""
-    seq_type = Sequence.NEW
+    operand = ""
+    operand_type = Operand.NEW
 
-    for c in input_str:
+    for c in input_formula:
         if c == ' ':        #ignore spaces
             pass
         elif c in OPERATORS:
-            append_sequence_to_formula(formula, c, sequence, seq_type, variables)
+            _append_operand_to_formula(formula, c, operand, operand_type, variables)
  
             if c == '^':        #replace power operator with python syntax
                 formula.append("**")
             else:
                 formula.append(c)
             
-            #start new sequence
-            sequence = ""
-            seq_type = Sequence.NEW
+            #start new operand
+            operand = ""
+            operand_type = Operand.NEW
 
         else:
-            if seq_type is Sequence.NEW:
-                if is_number(c):
-                    seq_type = Sequence.NUMBER
+            if operand_type is Operand.NEW:
+                if _is_number(c):
+                    operand_type = Operand.NUM
                 else:
-                    seq_type = Sequence.VAR
+                    operand_type = Operand.VAR
 
-                sequence += c
+                operand += c
 
-            elif seq_type is Sequence.NUMBER:
-                if not is_number(c) and c != '.':      #if number was start of multiplied variable
+            elif operand_type is Operand.NUM:
+                if not _is_number(c) and c != '.':      #if number was start of multiplied variable
                     #append leading number with multiplication operator 
-                    formula.append(sequence)
+                    formula.append(operand)
                     formula.append('*')
                     
-                    #change sequence to variable
-                    seq_type = Sequence.VAR
-                    sequence = c
+                    #change operand to variable
+                    operand_type = Operand.VAR
+                    operand = c
                 else:
-                    sequence += c
+                    operand += c
             
-            elif seq_type is Sequence.VAR:
-                sequence += c
+            elif operand_type is Operand.VAR:
+                operand += c
 
-    if len(formula) > 1 and formula[-1] != ')':      #append final sequence
-        append_sequence_to_formula(formula, '', sequence, seq_type, variables)
+    if operand_type is not Operand.NEW:      #append final operand
+        _append_operand_to_formula(formula, '', operand, operand_type, variables)
 
     return formula, variables
 
 
-def is_number(c):
+def _is_number(c):
     return '0' <= c and c <= '9'
 
 
-def append_sequence_to_formula(formula, operator, sequence, seq_type, variables):
-    if seq_type is Sequence.VAR:     #if var: add to set with position
-        if sequence in variables:
-            variables[sequence].add({len(formula)})
+def _append_operand_to_formula(formula, operator, operand, operand_type, variables):
+    if operand_type is Operand.VAR:     #if var: add to set with position
+        if operand in variables:
+            variables[operand].add({len(formula)})
         else:
-            variables[sequence] = {len(formula)}
+            variables[operand] = {len(formula)}
                     
-    formula.append(sequence)     #append sequence
+    formula.append(operand)     #append operand
 
-    if operator == '(' and seq_type is not Sequence.NEW or formula[-1] == ')':       #if operator is open bracket following a sequence or close bracket 
-        formula.append('*')      #require multiplication operator after sequence
+    if operator == '(' and operand_type is not Operand.NEW or formula[-1] == ')':       #if operator is open bracket following a operand or close bracket 
+        formula.append('*')      #require multiplication operator after operand
         
 
 def substitute_variables(formula, variables, substitutions):
+    """ Substitute variables in formula with inputted numbers.
+        Parameters:
+            formula: formula as list of ordered, seperated operands and operators
+            variables: variables mapped to indicies in formula list
+            substitutions: variables mapped to numeric substitution
+        Return:
+            the altered formula
+    """
     for sub in substitutions:
         for pos in variables[sub]:
             formula[pos] = substitutions[sub]
