@@ -34,17 +34,17 @@ class TkView(tk.Tk):
 
         entry_label = tk.Label(frame, text = FORMULA_ENTRY_TEXT)
         entry = tk.Entry(frame, bg = ENTRY_BG, fg = ENTRY_FG)
-        parse_button = tk.Button(frame, text = PARSE_BUTTON_TEXT, command = lambda: self.parse(entry.get()))
+        parse_button = tk.Button(frame, text = PARSE_BUTTON_TEXT, command = lambda: self.__parse(entry.get()))
 
         entry_label.pack(side = tk.LEFT)
         entry.pack(side = tk.LEFT)
         parse_button.pack(side = tk.RIGHT)
 
-        self.resize()
+        self.__resize()
 
     
     def create_variable_input(self, variables):
-        self.create_separator()
+        self.__create_separator()
 
         variable_frame = tk.Frame(self)
         variable_frame.pack()
@@ -73,41 +73,41 @@ class TkView(tk.Tk):
             var_entries[var] = entry
 
         
-        calc_button = tk.Button(variable_frame, text = CALC_BUTTON_TEXT, command = lambda: self.calculate(self.get_var_entry_input(var_entries)))
+        calc_button = tk.Button(variable_frame, text = CALC_BUTTON_TEXT, command = lambda: self.__calculate(self.__get_var_entry_input(var_entries)))
         calc_button.pack()
 
-        self.resize()
+        self.__resize()
 
 
     def display_result(self, result):
-        self.create_separator()
+        self.__create_separator()
         frame = tk.Frame(self)
         frame.pack()
         
         label = tk.Label(frame, text = RESULT_TEXT + result)
         label.pack()
         
-        self.resize()
+        self.__resize()
  
     
-    def create_separator(self):
+    def __create_separator(self):
         separator = ttk.Separator(self)
         separator.pack(fill = 'x')
     
     
-    def resize(self):
+    def __resize(self):
         self.geometry('')
     
 
-    def parse(self, input_formula_string):
+    def __parse(self, input_formula_string):
         self.parse_observer.notify(input_formula_string)
 
 
-    def calculate(self, var_inputs):
+    def __calculate(self, var_inputs):
         self.calculate_observer.notify(var_inputs)    
 
-
-    def get_var_entry_input(self, var_entries):
+    @staticmethod
+    def __get_var_entry_input(var_entries):
         var_inputs = {}
         for var in var_entries:
             var_inputs[var] = var_entries[var].get() 
