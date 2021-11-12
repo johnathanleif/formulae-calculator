@@ -17,4 +17,6 @@ def main():
 
     print(calculator.calculate_formula(formula))
 
+    view.open_window()
+
 main()
