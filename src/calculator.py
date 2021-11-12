@@ -5,4 +5,8 @@ def calculate(expression):
     Return:
         calculated result of the expression
     """
+<<<<<<< HEAD
     return eval(formula)
+=======
+    return eval(expression)
+>>>>>>> dev-ui
