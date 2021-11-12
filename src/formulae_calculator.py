@@ -23,7 +23,7 @@ def display_result():
 
 class FormulaInputObserver:
     def notify(input_formula_string):
-        global formula, variables, view
+        global formula, variables
         formula, variables = parse(input_formula_string)
         take_variable_input()
 
