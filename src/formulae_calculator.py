@@ -1,14 +1,11 @@
 from parser import *
 from calculator import *
-<<<<<<< HEAD
-=======
 from view import *
 
 
 formula = []
 variables = {}
 result = 0
->>>>>>> dev-ui
 
 def main():
     global view
@@ -23,20 +20,6 @@ def take_variable_input():
 def display_result():
     view.display_result(str(calculate("".join(formula))))
 
-<<<<<<< HEAD
-    input_string = "x"
-
-    formula, variables = parse(input_string)
-    print(formula)
-    print(variables)
-
-    substitutions = {"x": "2"}
-
-    substitute_variables(formula, variables, substitutions)
-    print(formula)
-
-    print(calculate_formula(formula))
-=======
 
 class FormulaInputObserver:
     def notify(input_formula_string):
@@ -50,6 +33,5 @@ class VariableInputObserver:
         substitute_variables(formula, variables, variable_substitutions)
         display_result()
 
->>>>>>> dev-ui
 
 main()
