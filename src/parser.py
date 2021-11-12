@@ -36,7 +36,7 @@ def parse(input_str):
             if seq_type is Sequence.NEW:
                 
                 if is_number(c):
-                    seq_type = sequence.NUMBER
+                    seq_type = Sequence.NUMBER
                 else:
                     seq_type = Sequence.VAR
 
