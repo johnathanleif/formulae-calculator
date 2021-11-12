@@ -12,8 +12,8 @@ Python 3.9.0 or compatible with Tkinter.
 
 ## Install and Run
 
-* Download ***ui_main.py***.
-* Open and run with IDLE (or equivalent).
+* Download ***src***.
+* Run `python formulae_calculator.py`.
 * Enter a formula and click *'Parse'*.
 * Enter numeric values for each variable and click *'Calculate'*.
 * Result is given.
