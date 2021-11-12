@@ -1,5 +1,5 @@
-import parser
-import calculator
+from parser import *
+from calculator import *
 from view import *
 
 
@@ -18,19 +18,19 @@ def take_variable_input():
 
 
 def display_result():
-    view.display_result(str(calculator.calculate_formula(formula)))
+    view.display_result(str(calculate("".join(formula))))
 
 
 class FormulaInputObserver:
     def notify(input_formula_string):
         global formula, variables, view
-        formula, variables = parser.parse(input_formula_string)
+        formula, variables = parse(input_formula_string)
         take_variable_input()
 
 
 class VariableInputObserver:
     def notify(variable_substitutions):
-        parser.substitute_variables(formula, variables, variable_substitutions)
+        substitute_variables(formula, variables, variable_substitutions)
         display_result()
 
 

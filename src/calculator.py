@@ -5,4 +5,4 @@ def calculate(expression):
     Return:
         calculated result of the expression
     """
-    return eval(formula)
+    return eval(expression)
