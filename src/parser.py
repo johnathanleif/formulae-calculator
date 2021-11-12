@@ -70,13 +70,24 @@ def is_number(c):
 def append_sequence_to_formula(formula, operator, sequence, seq_type, variables):
     if seq_type is Sequence.VAR:     #if var: add to set with position
         if sequence in variables:
-            variables[sequence].add({(len(formula), len(formula) + 1)})
+            variables[sequence].add({len(formula)})
         else:
-            variables[sequence] = {(len(formula), len(formula) + 1)}
+            variables[sequence] = {len(formula)}
                     
     formula.append(sequence)     #append sequence
 
     if operator == '(' and seq_type is not Sequence.NEW or formula[-1] == ')':       #if operator is open bracket following sequence or close bracket 
         formula.append('*')      #require multiplication operator after sequence
         
+
+def substitute_variables(formula, variables, substitutions):
+
+    for sub in substitutions:
+        for pos in variables[sub]:
+            print(pos)
+            print(sub)
+            formula[pos] = substitutions[sub]
+
+    return formula
+
 
