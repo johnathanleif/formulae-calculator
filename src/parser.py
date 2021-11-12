@@ -5,7 +5,7 @@ class Sequence:
     VAR = 1
 
 
-operators = {'+','-','*','/','(',')','^','%'}
+OPERATORS = {'+','-','*','/','(',')','^','%'}
 
 def parse(input_str):
     """ Parse input string.
@@ -23,9 +23,13 @@ def parse(input_str):
     for c in input_str:
         if c == ' ':        #ignore spaces
             pass
-        elif c in operators:
+        elif c in OPERATORS:
             append_sequence_to_formula(formula, c, sequence, seq_type, variables)
-            formula.append(c)
+ 
+            if c == '^':        #replace power operator with python syntax
+                formula.append("**")
+            else:
+                formula.append(c)
             
             #start new sequence
             sequence = ""
@@ -33,7 +37,6 @@ def parse(input_str):
 
         else:
             if seq_type is Sequence.NEW:
-                
                 if is_number(c):
                     seq_type = Sequence.NUMBER
                 else:

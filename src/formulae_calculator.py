@@ -1,16 +1,15 @@
 import parser
 import calculator
-import view
 
 def main():
 
-    input_string = "x + yz"
+    input_string = "x"
 
     formula, variables = parser.parse(input_string)
     print(formula)
     print(variables)
 
-    substitutions = {"x": "2", "yz": "3"}
+    substitutions = {"x": "2"}
 
     parser.substitute_variables(formula, variables, substitutions)
     print(formula)
