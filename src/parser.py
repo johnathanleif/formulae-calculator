@@ -15,8 +15,6 @@ def parse(input_str):
         and set of variables with string start and end positions
     """
 
-    print(input_str)
-
     formula = []
     variables = {}
     sequence = ""
@@ -26,8 +24,9 @@ def parse(input_str):
         if c == ' ':        #ignore spaces
             pass
         elif c in operators:
-            append_sequence_to_formula(formula, c, sequence, seq_type, variables)   #append sequence
-            formula.append(c)       #append formula
+            append_sequence_to_formula(formula, c, sequence, seq_type, variables)
+            formula.append(c)
+            
             #start new sequence
             sequence = ""
             seq_type = Sequence.NEW
@@ -36,7 +35,7 @@ def parse(input_str):
             if seq_type is Sequence.NEW:
                 
                 if is_number(c):
-                    seq_type = sequence.NUMBER
+                    seq_type = Sequence.NUMBER
                 else:
                     seq_type = Sequence.VAR
 
@@ -57,7 +56,7 @@ def parse(input_str):
             elif seq_type is Sequence.VAR:
                 sequence += c
 
-    if formula[-1] != ')':   #append final sequence
+    if formula[-1] != ')':      #append final sequence
         append_sequence_to_formula(formula, '', sequence, seq_type, variables)
 
     return formula, variables
@@ -76,18 +75,14 @@ def append_sequence_to_formula(formula, operator, sequence, seq_type, variables)
                     
     formula.append(sequence)     #append sequence
 
-    if operator == '(' and seq_type is not Sequence.NEW or formula[-1] == ')':       #if operator is open bracket following sequence or close bracket 
+    if operator == '(' and seq_type is not Sequence.NEW or formula[-1] == ')':       #if operator is open bracket following a sequence or close bracket 
         formula.append('*')      #require multiplication operator after sequence
         
 
 def substitute_variables(formula, variables, substitutions):
-
     for sub in substitutions:
         for pos in variables[sub]:
-            print(pos)
-            print(sub)
             formula[pos] = substitutions[sub]
 
     return formula
-
 
