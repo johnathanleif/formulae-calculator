@@ -59,7 +59,7 @@ def parse(input_str):
             elif seq_type is Sequence.VAR:
                 sequence += c
 
-    if formula[-1] != ')':      #append final sequence
+    if len(formula) > 1 and formula[-1] != ')':      #append final sequence
         append_sequence_to_formula(formula, '', sequence, seq_type, variables)
 
     return formula, variables
