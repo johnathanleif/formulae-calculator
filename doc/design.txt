@@ -1,10 +1,10 @@
 
 iterate over characters in a string to define variables
 
-define a sequence as a series of characters exclusively between endpoints, spaces, and/or operators
+define an operand as a series of characters exclusively between endpoints, spaces, and/or operators
 
-define a number as a sequence that contains only numeric characters
-define a variable as a sequence starting with an alphabetic character
+define a number as an operand that contains only numeric characters
+define a variable as an operand starting with an alphabetic character
 define a multiplied variable as a number leading a variable
 
 define an operation as the calulation of two variables/numbers about an operator
@@ -15,19 +15,26 @@ substitute operations for their result until all operations are complete
 
 use eval() to do the calulation (satisfies performing operations) 
 
-
-remove all spaces from formula string
+method:
+iterate over character in formula string to build a formula list with seperated operands and operators
 identify unique variables in formula string
-	store variables in a dictionary with list of tuples defining indices of variable start and end in formula string for substitution 
+	map variables to list of indices in the formula list for later substitution 
 replace multiplied variables with operations
-	identify a number sequence until an alphabetic character is found
-	split variable into last character of leading number and trailing variable
-	replace sequence in formula string with'number*variable' 
+	identify as a number operand until an alphabetic character is found
+	split variable into leading number and trailing variable operands
+	replace single operand in formula string with 'number*variable'
+replace multiplied brackets with operations
+	identify open bracket following an operand
+	replace 'operand(' with 'operand*('
+replace non-python syntax with python syntax
 request each variable input
 replace variables with input in formula string
 replace non-python syntax with python syntax for eval() in formula string
 do eval() on formula string and display result
 
-build a new string during parse to avoid using replace()
-make assumption that inputted formula makes sense and throw errors from eval()
+build a list from input formula string during parse to avoid using replace() on a string
+make assumptions that inputted formula makes sense and throw errors for bad syntax
 
+ui:
+pass strings from view to parser and calculator on button press with observers
+send variable names and result to back to view
